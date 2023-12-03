@@ -19,6 +19,7 @@
         {"state":"on","action":"redirect","rule":"\\<(iframe|script|body|img|layer|div|meta|style|base|object|input)"},
         {"state":"on","action":"redirect","rule":"(onmouseover|onerror|onload)\\="},
         {"state":"on","action":"redirect","rule":"/shell?cd+/tmp;\\s*rm+-rf\\+\\*;\\s*wget"},
-        {"state":"on","action":"redirect","rule":"/systembc/password.php"}
+        {"state":"on","action":"redirect","rule":"/systembc/password.php"},
+        {"state":"on","action": "redirect","rule": "(select|union|insert|delete|update|drop)"}
     ]
 }
