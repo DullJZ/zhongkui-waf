@@ -84,11 +84,22 @@ end
 local function redirect()
     if config.isProtectionMode then
         if config.isRedirectOn then
-            -- ngx.header.content_type = "text/html; charset=UTF-8"
-            -- ngx.status = ngx.HTTP_FORBIDDEN
-            -- ngx.say(config.html)
-            return ngx.exec("@honeypot")
+            local original_args = ngx.req.get_uri_args()
+            local res = ngx.location.capture("/honeypot", { 
+                method = ngx.HTTP_GET, 
+                args = original_args, 
+                ctx = { header = ngx.req.get_headers() } 
+            })
+
+            if res.status == ngx.HTTP_OK then
+                ngx.say(res.body)
+                ngx.exit(ngx.HTTP_OK)
+            else
+                ngx.say("request failed")
+                ngx.exit(res.status)
+            end
         end
+
         return deny()
     end
 end
